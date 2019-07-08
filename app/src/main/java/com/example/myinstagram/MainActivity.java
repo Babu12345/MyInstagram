@@ -32,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.login_btn);
         signupBtn = findViewById(R.id.signup_btn);
 
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            Intent i = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(i);
+        }
+
+
+
         loginBtn.setOnClickListener(new View.OnClickListener(){
 
 
@@ -52,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
 
@@ -62,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 if(e==null){
                     Log.d("LoginActivity", "Login Successful");
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                    startActivity(i);
                 }else{
                     Log.e("LoginActivity", "Login Failure");
                     Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
