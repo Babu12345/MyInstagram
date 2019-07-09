@@ -66,9 +66,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void login(String username, String password){
+
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
+
                 if(e==null){
                     Log.d("LoginActivity", "Login Successful");
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
