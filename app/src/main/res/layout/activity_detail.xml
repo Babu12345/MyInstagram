@@ -3,11 +3,12 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvRoot"
+    style="@style/Theme.AppCompat.Transparent"
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="3dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="60dp"
     android:layout_marginBottom="12dp"
     android:layout_marginRight="8dp"
     android:clickable="true"
@@ -15,13 +16,13 @@
     card_view:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="403dp"
-        android:layout_height="515dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:paddingTop="3dp">
 
         <ImageView
-            android:id="@+id/ivMainProfile"
+            android:id="@+id/ivMainProfile2"
             android:layout_width="match_parent"
             android:layout_height="232dp"
             android:layout_marginStart="8dp"
@@ -35,74 +36,77 @@
             tools:srcCompat="@tools:sample/avatars[4]" />
 
         <TextView
-            android:id="@+id/tvdescription"
+            android:id="@+id/tvdescription2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:background="#FFFFFF"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:paddingBottom="8dp"
             android:text="TextView"
+            android:textColor="#000000"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            card_view:layout_constraintStart_toEndOf="@+id/tvHandler"
-            card_view:layout_constraintTop_toBottomOf="@+id/tvLiked" />
+            card_view:layout_constraintStart_toEndOf="@+id/tvHandler2"
+            card_view:layout_constraintTop_toBottomOf="@+id/tvLiked2" />
 
         <TextView
-            android:id="@+id/tvUsername"
+            android:id="@+id/tvUsername2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
+            android:background="#FFFFFF"
             android:text="TextView"
+            android:textColor="#000000"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            card_view:layout_constraintBottom_toTopOf="@+id/ivMainProfile"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.0"
-            card_view:layout_constraintStart_toEndOf="@+id/ivProfilePic" />
+            card_view:layout_constraintBottom_toTopOf="@+id/ivMainProfile2"
+            card_view:layout_constraintStart_toEndOf="@+id/ivProfilePic2"
+            card_view:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/ibLike"
+            android:id="@+id/ibLike2"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
+
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
-            card_view:layout_constraintEnd_toStartOf="@+id/ibComment"
-            card_view:layout_constraintHorizontal_bias="0.307"
+            card_view:layout_constraintEnd_toStartOf="@+id/ibComment2"
+            card_view:layout_constraintHorizontal_bias="0.8"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/ivMainProfile"
+            card_view:layout_constraintTop_toBottomOf="@+id/ivMainProfile2"
             card_view:srcCompat="@drawable/ufi_heart" />
 
         <ImageButton
-            android:id="@+id/ibComment"
+            android:id="@+id/ibComment2"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="12dp"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
-            card_view:layout_constraintEnd_toStartOf="@+id/ibShare"
-            card_view:layout_constraintTop_toBottomOf="@+id/ivMainProfile"
+            card_view:layout_constraintEnd_toStartOf="@+id/ibShare2"
+            card_view:layout_constraintTop_toBottomOf="@+id/ivMainProfile2"
             card_view:srcCompat="@drawable/ufi_comment" />
 
         <ImageButton
-            android:id="@+id/ibShare"
+            android:id="@+id/ibShare2"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="268dp"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/ivMainProfile"
+            card_view:layout_constraintTop_toBottomOf="@+id/ivMainProfile2"
             card_view:srcCompat="@drawable/ufi_new_direct" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivProfilePic"
+            android:id="@+id/ivProfilePic2"
             android:layout_width="52dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
@@ -113,89 +117,64 @@
             tools:srcCompat="@tools:sample/avatars[6]" />
 
         <TextView
-            android:id="@+id/tvTimestamp"
+            android:id="@+id/tvTimestamp2"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:background="#FFFFFF"
             android:paddingLeft="5dp"
             android:text="TextView"
-            card_view:layout_constraintStart_toStartOf="@+id/tvHandler"
-            card_view:layout_constraintTop_toBottomOf="@+id/tvdescription" />
+            android:textColor="@android:color/tertiary_text_light"
+            card_view:layout_constraintStart_toStartOf="@+id/tvHandler2"
+            card_view:layout_constraintTop_toBottomOf="@+id/tvdescription2" />
 
         <TextView
-            android:id="@+id/tvHandler"
+            android:id="@+id/tvHandler2"
             android:layout_width="wrap_content"
             android:layout_height="33dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
+            android:background="#FFFFFF"
+            android:textColor="#000000"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            card_view:layout_constraintStart_toStartOf="@+id/tvLiked"
-            card_view:layout_constraintTop_toBottomOf="@+id/tvLiked" />
+            card_view:layout_constraintStart_toStartOf="@+id/tvLiked2"
+            card_view:layout_constraintTop_toBottomOf="@+id/tvLiked2" />
 
         <TextView
-            android:id="@+id/tvLiked"
+            android:id="@+id/tvLiked2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="TextView"
+            android:background="#FFFFFF"
+            android:textColor="#000000"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold"
-            card_view:layout_constraintStart_toStartOf="@+id/ibLike"
-            card_view:layout_constraintTop_toBottomOf="@+id/ibComment" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout8"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            card_view:layout_constraintStart_toEndOf="@+id/ivProfileComments"
-            card_view:layout_constraintTop_toTopOf="@+id/ivProfileComments">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etComment"
-                android:layout_width="302dp"
-                android:layout_height="wrap_content"
-                android:hint="Add a comment ..." />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivProfileComments"
-            android:layout_width="58dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tvTimestamp"
-            card_view:layout_constraintVertical_bias="0.636"
-            tools:srcCompat="@tools:sample/avatars[4]" />
-
-        <Button
-            android:id="@+id/btnPostSubmit"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="16dp"
-            android:background="@android:color/background_light"
-            android:text="Post"
-            android:textColor="#2196F3"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toEndOf="@+id/textInputLayout8" />
+            card_view:layout_constraintStart_toStartOf="@+id/ibLike2"
+            card_view:layout_constraintTop_toBottomOf="@+id/ibComment2" />
 
         <TextView
-            android:id="@+id/tvComments"
+            android:id="@+id/tvComments2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:background="#FFFFFF"
             android:clickable="true"
             android:text="TextView"
-            card_view:layout_constraintBottom_toTopOf="@+id/textInputLayout8"
-            card_view:layout_constraintStart_toStartOf="@+id/tvTimestamp"
-            card_view:layout_constraintTop_toBottomOf="@+id/tvTimestamp" />
+            android:textColor="@android:color/tertiary_text_light"
+            card_view:layout_constraintStart_toStartOf="@+id/tvTimestamp2"
+            card_view:layout_constraintTop_toBottomOf="@+id/tvTimestamp2" />
+
+        <ImageButton
+            android:id="@+id/ibCancel"
+            android:layout_width="54dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/white"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

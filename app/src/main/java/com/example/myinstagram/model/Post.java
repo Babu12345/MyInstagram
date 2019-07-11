@@ -6,6 +6,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.Date;
+import java.util.List;
 
 
 @ParseClassName("Post")
@@ -29,6 +30,23 @@ public class Post extends ParseObject {
 
         return getParseFile(KEY_IMAGE);
     }
+
+    public Integer numLiked(){
+        return getInt("NumLiked");
+    }
+
+    public void setNumLiked(Integer num){
+        put("NumLiked", num);
+    }
+
+    public List<ParseUser> likedBy(){
+
+        return getList("likedBy");
+
+    }
+
+
+
 
     public void setImage(ParseFile image){
         put(KEY_IMAGE, image);
@@ -61,4 +79,7 @@ public class Post extends ParseObject {
     public void setUser(ParseUser user){
         put(KEY_USER,user);
     }
+
+
+
 }

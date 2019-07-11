@@ -2,11 +2,15 @@ package com.example.myinstagram;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,12 +24,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myinstagram.fragments.ProfileFragment;
+import com.example.myinstagram.model.Comments;
 import com.example.myinstagram.model.Post;
+import com.parse.GetCallback;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -58,11 +66,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         Post post = mPosts.get(position);
         holder.bind(post);
 
-
-
-
-//        File photoFile1 = post.getImage().;
-//        holder.ivMainProfile.setImageBitmap();
     }
 
     @Override
@@ -70,7 +73,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         return mPosts.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView ivMainProfile;
         public TextView tvdescription;
         public TextView tvUsername;
@@ -79,12 +82,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         public ImageButton ibComment;
         public ImageButton ibShare;
         public TextView tvTimestamp;
+        public TextView tvLiked;
         public CircleImageView ivProfilePic;
-
+        public CircleImageView ivProfileComments;
+        public Button btnPost;
+        public EditText etComment;
+        public TextView tvComments;
 
         public ViewHolder(@NonNull View itemView) {
         super(itemView);
-
 
         ivMainProfile = itemView.findViewById(R.id.ivMainProfile);
         tvdescription = itemView.findViewById(R.id.tvdescription);
@@ -95,11 +101,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         ibShare = itemView.findViewById(R.id.ibShare);
         tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
         ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
+        tvLiked = itemView.findViewById(R.id.tvLiked);
+        ivProfileComments = itemView.findViewById(R.id.ivProfileComments);
+        btnPost = itemView.findViewById(R.id.btnPostSubmit);
+        etComment = itemView.findViewById(R.id.etComment);
+        tvComments = itemView.findViewById(R.id.tvComments);
 
 
-
-
-
+            itemView.setOnClickListener(this);
     }
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
@@ -124,6 +133,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         tvdescription.setText(post.getDescription());
         tvHandler.setText(post.getUser().getUsername());
         tvUsername.setText(post.getUser().getUsername());
+        tvLiked.setText(post.numLiked().toString() + " likes");
 //        tvTimestamp.setText(DateFormat.getDateInstance().format(post.getPostTime()));
         DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy");
 
@@ -135,6 +145,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         ParseFile image = post.getImage();
         if (image != null){
             Glide.with(context).load(image.getUrl()).into(ivMainProfile);
+        }else{
+            Glide.with(context).load(context.getResources().getDrawable(R.drawable.instagram_user_outline_24)).into(ivMainProfile);
         }
 
         ParseFile image2 = post.getUser().getParseFile("profilePic");
@@ -155,39 +167,185 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
 
         }
 
-        if (post.isLiked()){
+
+        ParseFile image3 = ParseUser.getCurrentUser().getParseFile("profilePic");
+
+        if(image3!=null){
+            Glide.with(context)
+                    .load(image3.getUrl())
+                    .into(ivProfileComments);
+        }else{
+            Glide.with(context)
+                    .load(context.getResources().getDrawable(R.drawable.instagram_user_outline_24))
+                    .into(ivProfileComments);
+        }
+
+        // Get number of commented posts
+        List <Comments> commentArray = post.getList("commentList");
+        Integer commentNum = 0;
+        if (commentArray == null){
+            commentNum = 0;
+        }else{
+            commentNum = commentArray.size();
+
+        }
+
+
+        tvComments.setText("View all "+commentNum.toString()+" comments");
+        tvComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO - have an intent to do to the Comments List
+                //If there is a click on this then go to a different activity with a recycler view of all the comments
+                Intent intent = new Intent(context, CommentsList.class);
+                intent.putExtra("postId", post.getObjectId());
+                intent.putExtra("post", post);
+                context.startActivity(intent);
+            }
+        });
+
+        ibComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //If there is a click on this then go to a different activity with a recycler view of all the comments
+
+                Toast.makeText(context,"Clicked Comment", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, CommentsList.class);
+                intent.putExtra("post", post);
+                context.startActivity(intent);
+            }
+        });
+
+
+        Boolean isLiked = false;
+
+        List <ParseUser> users1 = post.getList("likedBy");
+
+        if (users1!=null) {
+            for (int i = 0; i < users1.size(); i++) {
+
+
+
+            if (ParseUser.getCurrentUser().getObjectId().equals(users1.get(i).getObjectId()) ){
+
+                isLiked = true;
+                break;
+            }
+            }
+        }else{
+
+
+            post.put("likedBy", new ArrayList<ParseUser>());
+        }
+
+
+
+        if (isLiked && (users1 != null)){
             ibLike.setImageResource(R.drawable.ufi_heart_active);
             ibLike.setColorFilter(Color.RED);
             post.setLike(Boolean.TRUE);
 
-        }else{
+
+
+        }else if (!isLiked && (users1 !=null)){
             ibLike.setImageResource(R.drawable.ufi_heart);
             ibLike.setColorFilter(Color.BLACK);
             post.setLike(Boolean.FALSE);
 
         }
 
+        post.saveInBackground();
 
         ibLike.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
+                Boolean isLiked1 = false;
+
+                List <ParseUser> users = new ArrayList<ParseUser>();
+                users.clear();
 
 
-                if (!post.isLiked()){
+                users = post.getList("likedBy");
+
+
+
+                if (users!=null) {
+                    for (int i = 0; i < users.size(); i++) {
+
+                        if (ParseUser.getCurrentUser().getObjectId().equals(users.get(i).getObjectId()) ){
+                            isLiked1 = true;
+
+                        }
+
+//
+                    }
+                }
+                else{
+
+//                    users = new ArrayList<ParseUser>();
+                    post.put("likedBy", new ArrayList<ParseUser>());
+                }
+
+
+                Integer newLiked;
+                if (!isLiked1 && (users!=null)){
                     ibLike.setImageResource(R.drawable.ufi_heart_active);
                     ibLike.setColorFilter(Color.RED);
                     post.setLike(Boolean.TRUE);
 
-                }else{
+
+                    users.add(ParseUser.getCurrentUser());
+
+
+
+                    newLiked =post.numLiked() + 1;
+                    post.setNumLiked(newLiked);
+
+                    tvLiked.setText(newLiked.toString() + " likes");
+
+                    post.put("likedBy", users);
+
+                }else if (isLiked1 &&users!=null){
                     ibLike.setImageResource(R.drawable.ufi_heart);
                     ibLike.setColorFilter(Color.BLACK);
                     post.setLike(Boolean.FALSE);
 
+
+                    int index = 0;
+
+                    for (int i = 0; i < users.size(); i++) {
+
+                        if (ParseUser.getCurrentUser().getObjectId().equals(users.get(i).getObjectId()) ){
+//
+                            index = i;
+                        }
+
+
+                    }
+
+                    users.remove(index);
+                    Log.d("PostsAdapter", String.format("%d",users.size()));
+
+
+
+
+                    newLiked =post.numLiked() - 1;
+                    post.setNumLiked(newLiked);
+
+                    tvLiked.setText(newLiked.toString() + " likes");
+
+                    post.put("likedBy", users);
+
                 }
 
 
+
+
                 post.saveInBackground();
+
+
+
             }
         });
 
@@ -226,11 +384,76 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             }
         });
 
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // First Create the comment
+
+                Comments comments = new Comments();
+                comments.putComment(etComment.getText().toString(), ParseUser.getCurrentUser(), post.getObjectId());
+                comments.saveInBackground();
+
+
+
+                //Later add the comment into the list in the Post class database
+
+
+
+                comments.fetchInBackground(new GetCallback<Comments>() {
+                    @Override
+                    public void done(Comments comments, com.parse.ParseException e) {
+                        Toast.makeText(context, "Clicked Post", Toast.LENGTH_SHORT).show();
+
+                        //Later add the comment into the list in the Post class database
+
+                        List <Comments> commentsList = post.getList("commentList");
+
+                        if (commentsList ==null){
+                            commentsList = new ArrayList<Comments>();
+                        }
+
+                        commentsList.add(comments);
+
+
+                        post.put("commentList", commentsList);
+
+                        post.saveInBackground();
+
+
+                        Integer commentNum = 0;
+                        commentNum = commentsList.size();
+
+
+                        tvComments.setText("View all "+commentNum.toString()+" comments");
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
+
+            }
+        });
+
+
+
 
 
 
 
     }
-}
+
+        @Override
+        public void onClick(View view) {
+
+        }
+    }
 
 }
