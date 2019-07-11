@@ -9,12 +9,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.myinstagram.fragments.ComposeFragment;
+import com.example.myinstagram.fragments.HomeFragment;
+import com.example.myinstagram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseUser;
 
 
 public class HomeActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,9 +27,9 @@ public class HomeActivity extends AppCompatActivity {
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
         // define your fragments here
-//        final Fragment fragment1 = new ComposeFragment();
+        final Fragment fragment1 = new HomeFragment();
         final Fragment fragment2 = new ComposeFragment();
-//        final Fragment fragment3 = new ThirdFragment();
+        final Fragment fragment3 = new ProfileFragment(ParseUser.getCurrentUser());
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -33,7 +38,8 @@ public class HomeActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
-                        fragment = fragment2;
+
+                        fragment = fragment1;
 //                        finish();
                         break;
                     case R.id.action_compose:
@@ -42,7 +48,9 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.action_profile:
                     default:
-                        fragment = fragment2;
+//                        showProgressBar();
+                        fragment = fragment3;
+
 
                         break;
                 }
@@ -58,4 +66,7 @@ public class HomeActivity extends AppCompatActivity {
         // Set default selection
         bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
+
+
+
 }

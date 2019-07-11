@@ -1,10 +1,6 @@
 package com.example.myinstagram.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,16 +20,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myinstagram.R;
 import com.example.myinstagram.descriptionActivity;
-import com.example.myinstagram.model.Post;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-
-import org.parceler.Parcels;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -72,26 +60,10 @@ public class ComposeFragment extends Fragment {
 
             }
         });
-//        queryPosts();
-    }
-
-    private void queryPosts(){
-        ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
-        postQuery.include(Post.KEY_USER);
-        postQuery.findInBackground(new FindCallback<Post>(){
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e!=null){
-                    Log.e("ComposeFragment", "Error with query");
-                    e.printStackTrace();
-                    return;
-
-                }
-
-            }
-        });
 
     }
+
+
 
 
     private void launchCamera(){
@@ -127,13 +99,10 @@ public class ComposeFragment extends Fragment {
 //                ivPostImage.setImageBitmap(rotateBitmapOrientation(photoFile.getAbsolutePath()));
 
                 // Compressing the bitmap
-                Bitmap bitmap = rotateBitmapOrientation(photoFile.getAbsolutePath());
 
-                Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(bitmap, 310);
 
 
                 Intent intent = new Intent(getActivity(), descriptionActivity.class);
-                intent.putExtra("image", Parcels.wrap(resizedBitmap));// puts the image into the intent
 
                 intent.putExtra("photofile", photoFile);
 
@@ -166,33 +135,5 @@ public class ComposeFragment extends Fragment {
         return file;
     }
 
-    //Used for rotating the bitmap image
 
-    public Bitmap rotateBitmapOrientation(String photoFilePath) {
-        // Create and configure BitmapFactory
-        BitmapFactory.Options bounds = new BitmapFactory.Options();
-        bounds.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(photoFilePath, bounds);
-        BitmapFactory.Options opts = new BitmapFactory.Options();
-        Bitmap bm = BitmapFactory.decodeFile(photoFilePath, opts);
-        // Read EXIF Data
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(photoFilePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
-        int rotationAngle = 0;
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
-        // Rotate Bitmap
-        Matrix matrix = new Matrix();
-        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
-        // Return result
-        return rotatedBitmap;
-    }
 }

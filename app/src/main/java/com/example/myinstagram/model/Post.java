@@ -5,6 +5,8 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.Date;
+
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
@@ -31,10 +33,28 @@ public class Post extends ParseObject {
     public void setImage(ParseFile image){
         put(KEY_IMAGE, image);
 
+
+    }
+
+    public Date getPostTime(){
+
+        return getDate("createdAt");
     }
 
     public ParseUser getUser(){
         return getParseUser(KEY_USER);
+    }
+
+    public Boolean isLiked(){
+
+
+        return getBoolean("Like");
+
+    }
+
+    public void setLike(Boolean likeStatus){
+
+        put("Like", likeStatus);
     }
 
 
