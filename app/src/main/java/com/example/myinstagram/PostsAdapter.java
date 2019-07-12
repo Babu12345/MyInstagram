@@ -211,6 +211,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
 
                 Toast.makeText(context,"Clicked Comment", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, CommentsList.class);
+                intent.putExtra("postId", post.getObjectId());
                 intent.putExtra("post", post);
                 context.startActivity(intent);
             }

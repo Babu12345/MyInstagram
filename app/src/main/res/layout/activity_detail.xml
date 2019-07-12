@@ -29,6 +29,7 @@
             android:layout_marginTop="60dp"
             android:layout_marginEnd="8dp"
             android:scaleType="fitXY"
+
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.494"
             card_view:layout_constraintStart_toStartOf="parent"
@@ -111,6 +112,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:background="@android:color/background_light"
             android:clickable="true"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
@@ -120,12 +122,15 @@
             android:id="@+id/tvTimestamp2"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="84dp"
             android:background="#FFFFFF"
             android:paddingLeft="5dp"
             android:text="TextView"
             android:textColor="@android:color/tertiary_text_light"
-            card_view:layout_constraintStart_toStartOf="@+id/tvHandler2"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tvdescription2" />
 
         <TextView
@@ -157,12 +162,13 @@
             android:id="@+id/tvComments2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:background="#FFFFFF"
             android:clickable="true"
             android:text="TextView"
             android:textColor="@android:color/tertiary_text_light"
-            card_view:layout_constraintStart_toStartOf="@+id/tvTimestamp2"
+            card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tvTimestamp2" />
 
         <ImageButton

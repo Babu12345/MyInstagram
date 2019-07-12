@@ -48,6 +48,8 @@ public class ComposeFragment extends Fragment {
         takePhotobtn = view.findViewById(R.id.takephoto_btn);
         ivPostImage = view.findViewById(R.id.ivPostImage);
 
+
+
         takePhotobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -25,4 +25,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_bottom_navigation" />
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"
+        />
+
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

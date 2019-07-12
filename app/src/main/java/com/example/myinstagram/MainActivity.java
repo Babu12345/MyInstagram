@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.LogInCallback;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Button loginBtn;
     private Button signupBtn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.password_et);
         loginBtn = findViewById(R.id.login_btn);
         signupBtn = findViewById(R.id.signup_btn);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.hide();
+
+
+
+//        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {

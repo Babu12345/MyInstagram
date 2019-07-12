@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -25,6 +27,18 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         final FragmentManager fragmentManager = getSupportFragmentManager();
+
+
+        Toolbar mytoolbar = findViewById(R.id.toolbar);
+
+        
+        mytoolbar.setLogo(R.drawable.nav_logo_whiteout);
+//        setSupportActionBar(mytoolbar);
+//        getSupportActionBar().setTitle("Hello");
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
 
         // define your fragments here
         final Fragment fragment1 = new HomeFragment();

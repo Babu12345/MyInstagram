@@ -95,6 +95,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
 
                 //serialize the movie
                 intent.putExtra("post", post);
+                intent.putExtra("username",post.getUser().getUsername());
 
                 //show the activity
                 context.startActivity(intent);
