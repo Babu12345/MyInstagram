@@ -68,7 +68,7 @@ public class DetailActivity extends AppCompatActivity {
 
         post = (Post)getIntent().getExtras().get("post");
 
-//        Toast.makeText(getApplicationContext(), post.getUser().getUsername(),Toast.LENGTH_SHORT).show();
+
 
 
         tvdescription2.setText(post.getDescription());
@@ -266,10 +266,11 @@ public class DetailActivity extends AppCompatActivity {
                 }
 
 
-
-
-                post.saveInBackground();
-
+                try {
+                    post.save();
+                } catch (com.parse.ParseException e) {
+                    e.printStackTrace();
+                }
 
 
             }

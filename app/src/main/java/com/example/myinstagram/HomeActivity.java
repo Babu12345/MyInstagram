@@ -31,10 +31,9 @@ public class HomeActivity extends AppCompatActivity {
 
         Toolbar mytoolbar = findViewById(R.id.toolbar);
 
-        
+
         mytoolbar.setLogo(R.drawable.nav_logo_whiteout);
-//        setSupportActionBar(mytoolbar);
-//        getSupportActionBar().setTitle("Hello");
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();

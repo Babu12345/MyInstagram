@@ -355,7 +355,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(context,"Username Click", Toast.LENGTH_SHORT).show();
+
 
                 FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                 Fragment fragment = new ProfileFragment(post.getUser());
@@ -372,7 +372,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(context,"Profile Click", Toast.LENGTH_SHORT).show();
+
 
                 FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                 Fragment fragment = new ProfileFragment(post.getUser());
@@ -404,7 +404,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
                 comments.fetchInBackground(new GetCallback<Comments>() {
                     @Override
                     public void done(Comments comments, com.parse.ParseException e) {
-                        Toast.makeText(context, "Clicked Post", Toast.LENGTH_SHORT).show();
+
 
                         //Later add the comment into the list in the Post class database
 

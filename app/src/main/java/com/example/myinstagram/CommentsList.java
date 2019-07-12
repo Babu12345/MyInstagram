@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -102,7 +101,7 @@ public class CommentsList extends AppCompatActivity {
                 comments.fetchInBackground(new GetCallback<Comments>() {
                     @Override
                     public void done(Comments comments, com.parse.ParseException e) {
-                        Toast.makeText(getApplicationContext(), "Clicked Post", Toast.LENGTH_SHORT).show();
+
 
                         //Later add the comment into the list in the Post class database
 

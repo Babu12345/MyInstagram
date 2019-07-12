@@ -90,6 +90,15 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPosts.clear();
+        profileAdapter.notifyDataSetChanged();
+        queryPosts();
+    }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -264,6 +273,7 @@ public class ProfileFragment extends Fragment {
         postQuery.setLimit(20);
         postQuery.whereEqualTo(Post.KEY_USER, currentUser);
         postQuery.addDescendingOrder("createdAt");
+
 
         if (mPosts.size() > 0){
             postQuery.whereLessThan("createdAt", mPosts.get(mPosts.size() - 1).getCreatedAt());
