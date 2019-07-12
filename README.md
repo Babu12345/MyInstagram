@@ -36,7 +36,7 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] List anything else that you can get done to improve the app functionality!
   1. Added a pop-up details page in the profile page
   2. Added a seperate comments activity page
   3. Added card view
